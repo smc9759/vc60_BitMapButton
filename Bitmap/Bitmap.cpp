@@ -45,14 +45,29 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
 	HBITMAP MyBitmap, OldBitmap;
 	HFONT font, oldfont;
 	char str[]="ÆùÆ® Test 1234";
+	LOGFONT lf;
 	switch(iMessage) {
 	case WM_CREATE:
 		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		font=CreateFont(50,0,0,0,0,0,0,0,HANGEUL_CHARSET,0,0,0,0,"±Ã¼­");
-		oldfont = (HFONT)SelectObject(hdc,font);
-		TextOut(hdc,0,0,str,strlen(str));
+		lf.lfHeight=50;
+		lf.lfWidth=0;
+		lf.lfEscapement=0;
+		lf.lfOrientation=0;
+		lf.lfWeight=0;
+		lf.lfItalic=0;
+		lf.lfUnderline=0;
+		lf.lfStrikeOut=0;
+		lf.lfCharSet=HANGEUL_CHARSET;
+		lf.lfOutPrecision=0;
+		lf.lfClipPrecision=0;
+		lf.lfQuality=0;
+		lf.lfPitchAndFamily=0;
+		strcpy(lf.lfFaceName,"±Ã¼­");
+		font=CreateFontIndirect(&lf);
+		oldfont=(HFONT)SelectObject(hdc,font);
+		TextOut(hdc, 100,100,str,strlen(str));
 		SelectObject(hdc,oldfont);
 		DeleteObject(font);
 		EndPaint(hWnd, &ps);
