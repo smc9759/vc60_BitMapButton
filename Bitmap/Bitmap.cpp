@@ -43,18 +43,18 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
 	HDC hdc, MemDC;
 	PAINTSTRUCT ps;
 	HBITMAP MyBitmap, OldBitmap;
+	HFONT font, oldfont;
+	char str[]="ÆùÆ® Test 1234";
 	switch(iMessage) {
 	case WM_CREATE:
 		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		MemDC=CreateCompatibleDC(hdc);
-		MyBitmap=LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_ON));
-		OldBitmap=(HBITMAP)SelectObject(MemDC, MyBitmap);
-		BitBlt(hdc, 0,0,223,160,MemDC,0,0,SRCCOPY);
-		SelectObject(MemDC,OldBitmap);
-		DeleteObject(MyBitmap);
-		DeleteDC(MemDC);
+		font=CreateFont(50,0,0,0,0,0,0,0,HANGEUL_CHARSET,0,0,0,0,"±Ã¼­");
+		oldfont = (HFONT)SelectObject(hdc,font);
+		TextOut(hdc,0,0,str,strlen(str));
+		SelectObject(hdc,oldfont);
+		DeleteObject(font);
 		EndPaint(hWnd, &ps);
 		return 0;
 	case WM_DESTROY:
