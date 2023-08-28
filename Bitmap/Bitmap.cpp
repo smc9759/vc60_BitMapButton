@@ -51,7 +51,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
 		MemDC=CreateCompatibleDC(hdc);
 		MyBitmap=LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_ON));
 		OldBitmap=(HBITMAP)SelectObject(MemDC, MyBitmap);
-		BitBlt(hdc, 0,0,123,160,MemDC,0,0,SRCCOPY);
+		BitBlt(hdc, 0,0,223,160,MemDC,0,0,SRCCOPY);
 		SelectObject(MemDC,OldBitmap);
 		DeleteObject(MyBitmap);
 		DeleteDC(MemDC);
