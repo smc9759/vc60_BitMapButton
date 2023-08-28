@@ -40,13 +40,21 @@ int APIENTRY WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance
 
 LRESULT CALLBACK WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
 {
-	HDC hdc;
+	HDC hdc, MemDC;
 	PAINTSTRUCT ps;
+	HBITMAP MyBitmap, OldBitmap;
 	switch(iMessage) {
 	case WM_CREATE:
 		return 0;
 	case WM_PAINT:
-		hdc=BeginPaint(hWnd, &ps);
+		hdc = BeginPaint(hWnd, &ps);
+		MemDC=CreateCompatibleDC(hdc);
+		MyBitmap=LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_ON));
+		OldBitmap=(HBITMAP)SelectObject(MemDC, MyBitmap);
+		BitBlt(hdc, 0,0,123,160,MemDC,0,0,SRCCOPY);
+		SelectObject(MemDC,OldBitmap);
+		DeleteObject(MyBitmap);
+		DeleteDC(MemDC);
 		EndPaint(hWnd, &ps);
 		return 0;
 	case WM_DESTROY:
