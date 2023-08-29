@@ -76,6 +76,17 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
 		DeleteObject(font);
 		EndPaint(hWnd, &ps);
 		return 0;
+	case WM_COMMAND:
+		switch(LOWORD(wParam))
+		{
+		case 0:
+			MessageBox(hWnd,"First Button Clicked","Button",MB_OK);
+			break;
+		case 1:
+			MessageBox(hWnd,"Second Button Clicked","Button",MB_OK);
+			break;
+		}
+		return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
